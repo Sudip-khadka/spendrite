@@ -23,7 +23,8 @@
                     <option>Others</option>
                 </select>
                 <input type="number" name="amount" id="amount" placeholder="Enter amount" required> <br> <br>
-                <input type="date" name="date">
+                <input type="date" name="date"><br><br>
+                <textarea type="text" name="detail" placeholder="Enter Details" ></textarea><br> <br>
                 <input type="submit" value="Add Expenses">
             </form>
         </div>
@@ -35,6 +36,7 @@
             <th>Expenses Source</th>
             <th>Amount</th>
             <th>Date</th>
+            <th>Details</th>
             <th>Actions</th>
             </tr>
         <?php
@@ -47,20 +49,20 @@
             $id=$row['id'];
             $expense=$row['expense_head'];
             $amount=$row['amount'];
-            $date=$row['created_at']
-            
+            $date=$row['created_at'];
+            $detail=$row['Details'];
             ?>
              <tr>
                 
                 <td><?php echo $expense?></td>
                 <td><?php echo $amount?></td>
-            
-                
-                <td><?php echo $date?>
+                <td><?php echo $date?></td>
+                <td><?php echo $detail?></td>
+            <td>
                 <a href="edit.php?id=<?php echo $id?>">Update</a>
                 <a href="delete.php?id=<?php echo $id?>">Delete</a>
             </td>
-                </tr>
+            </tr>
 
             <?php
         }
