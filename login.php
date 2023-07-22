@@ -2,10 +2,13 @@
 session_start();
 include 'config.php';
 
+$loginMessage = ""; // Initialize the error message variable
+
 if (isset($_POST['submit'])) {
     $username = $_POST['username'];
     $password = $_POST['password'];
 
+    // Query to retrieve the user with the given username
     $sql = "SELECT * FROM user WHERE username = '$username'";
     $result = mysqli_query($con, $sql);
 
@@ -13,19 +16,35 @@ if (isset($_POST['submit'])) {
         $row = mysqli_fetch_assoc($result);
         $storedPassword = $row['password'];
 
-        if ($password === $storedPassword) {
-            $_SESSION['username'] = $username;
-            $_SESSION['user_id'] = $row['id'];
-            header("Location: dashboard.php"); // Redirect to the dashboard or any other page after successful login
-            exit();
-        } else {
-            echo "Invalid username or password";
-        }
+        $enteredPasswordHash = md5($password);
+
+    if ($enteredPasswordHash === $storedPassword) {
+        // Password is correct
+        $_SESSION['username'] = $username;
+        $_SESSION['user_id'] = $row['id'];
+        header("Location: dashboard.php"); // Redirect to the dashboard or any other page after successful login
+        exit();
     } else {
-        echo "Invalid username or password";
+        $loginMessage = "Invalid password";
     }
+
+    } else {
+        $loginMessage = "Username not found";
+    }
+
+    // Store the loginMessage in a session variable
+    $_SESSION['loginMessage'] = $loginMessage;
+
+    // Redirect back to the login page to display the error message
+    header("Location: login.php");
+    exit();
 }
 
+// Clear the loginMessage from the session after displaying it
+if (isset($_SESSION['loginMessage'])) {
+    $loginMessage = $_SESSION['loginMessage'];
+    unset($_SESSION['loginMessage']);
+}
 ?>
 
 <!DOCTYPE html>
@@ -36,16 +55,42 @@ if (isset($_POST['submit'])) {
     <title>Login</title>
     <link rel="stylesheet" href="signup.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Josefin+Sans:wght@600&family=Roboto:wght@300&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Josefin+Sans:wght@600&family=Roboto:wght@300&display=swap" rel="stylesheet">
+</head>
+<body>
+<h1 class="header"><b>Spendrite</b></h1>
+<img src="images/signup.png" alt="Signup Image">
+<div class="login form-container">
+    <form action="login.php" method="post">
+    <h2>Login</h2>
+        <input type="text" name="username" id="username" placeholder="Username">
+        <span class="error" id="username-error"><?php echo isset($loginMessage) ? ($loginMessage === "Username not found" ? "Username Not Found" : "") : ""; ?></span>
+    <br>
+        <input type="password" name="password" id="password" placeholder="Password">
+        <span class="error" id="password-error"><?php echo isset($loginMessage) ? ($loginMessage === "Invalid password" ? "Incorrect Password" : "") : ""; ?></span>
+        <br>
+
+        <ion-icon name="eye-off-outline"></ion-icon>
+        <button type="submit" name="submit">Submit</button>
+
+         
+            
+        <p>Don't have an account. <span><a href="signup.php">Sign Up</a></span></p>
+        
+    </form>
+</div> 
+<p class="footer"><i>"Building a better financial future for you, with every transaction."</i></p>  
 <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
 <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 <script>
         document.addEventListener('DOMContentLoaded', function() {
-            const passwordInput = document.getElementById('password');
+
+        const passwordInput = document.getElementById('password');
             const eyeIcon = document.querySelector('ion-icon[name="eye-off-outline"]');
 
             eyeIcon.addEventListener('click', function() {
+                
                 if (passwordInput.type === 'password') {
                     passwordInput.type = 'text';
                     eyeIcon.setAttribute('name', 'eye-outline');
@@ -70,22 +115,5 @@ if (isset($_POST['submit'])) {
             });
         });
     </script>
-</head>
-<body>
-<h1 class="header"><b>Spendrite</b></h1>
-<img src="images/signup.png" alt="Signup Image">
-<div class="login form-container">
-    <form action="login.php" method="post">
-    <h2>Login</h2>
-        <input type="text" name="username" id="username" placeholder="Username"><br>
-        <input type="password" name="password" id="password" placeholder="Password"><br>
-        <ion-icon name="eye-off-outline"></ion-icon>
-        <button type="submit" name="submit">Submit</button>
-        <p>Don't have an account. <span><a href="signup.php">Sign Up</a></span></p>
-        
-    </form>
-</div> 
-<p class="footer"><i>"Building a better financial future for you, with every transaction."</i></p>  
-
 </body>
 </html>

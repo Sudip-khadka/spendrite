@@ -14,7 +14,7 @@ body {
     position: relative;
     left: 300px; /* Adjust the left distance to move the form to the right */
     transform-origin: top center; /* Set the transformation origin to the top center */
-    transform: rotate(-4deg); /* Rotate the form container slightly to the left */
+     /* Rotate the form container slightly to the left */
     background-color: #fff;
     padding: 10px 30px;
     border-radius: 10px;
@@ -27,18 +27,18 @@ body {
 
 h2 {
     font-family: 'Josefin Sans', sans-serif;
-    transform: rotate(4deg);
+    
 }
 
 input {
     font-family: 'Roboto', sans-serif;
     align-items: center;
     width: 100%;
-    margin: 30px 0;
+   margin:30px 0;
     border: none;
     border-bottom: 1px solid #000;
     outline: none;
-    transform: rotate(4deg);
+    
 }
 
 ::placeholder {
@@ -54,10 +54,7 @@ button{
     border:none;
     border-radius: 10px;
 }
-button,
-p {
-    transform: rotate(4deg);
-}
+
 
 a {
     padding: 5px;
@@ -104,7 +101,7 @@ img {
 ion-icon[name*="eye"] {
     font-size: 24px;
     position: absolute;
-    top: 60%;
+    top: 55%;
     right: 35px;
     transform: translateY(-50%);
     cursor: pointer;
@@ -119,4 +116,12 @@ ion-icon[name="eye"] {
 /* Adjusting the input's padding to make space for the icon */
 input[type="password"] {
     padding-right: 45px; /* Adding some padding to the right */
+}
+
+.error{
+    margin-top:-30px;
+    color: red;
+    font-size: 14px;
+   /* Adjust the position and z-index to make the error message visible above the form */
+    
 }

@@ -1,12 +1,13 @@
 <?php
 include_once('config.php');
+$errorMessage = "";
 
 if (isset($_POST['submit'])) {
     $name = $_POST['name'];
     $username = $_POST['username'];
     $email = $_POST['email'];
-    $password = md5($_POST['password']);
-    $conformP = md5($_POST['conformP']);
+    $password = $_POST['password'];
+    $conformP = $_POST['conformP'];
     $profile = 1;
 
     // Validate name format (allowing alphabets and spaces)
@@ -26,25 +27,37 @@ if (isset($_POST['submit'])) {
         $sql_check_email = "SELECT * FROM user WHERE email='$email'";
         $result_check_email = mysqli_query($con, $sql_check_email);
         if (mysqli_num_rows($result_check_email) > 0) {
-            echo "Account already created. Please use a different email.";
+            $errorMessage = "Account already created. Please use a different email.";
         } else {
-            // Saving images uploaded in profile
-            $targetdir = "images/";
-
-            if (!empty($_FILES["image"]["name"])) {
-                $fileName = basename($_FILES["image"]["name"]);
-                $targetFilePath = $targetdir . $fileName;
-                $fileType = pathinfo($targetFilePath, PATHINFO_EXTENSION);
-                // Check if the file was selected and move it to uploads directory
-                move_uploaded_file($_FILES["image"]["tmp_name"], $targetFilePath);
+            // Check if username already exists in the database
+            $sql_check_username = "SELECT * FROM user WHERE username='$username'";
+            $result_check_username = mysqli_query($con, $sql_check_username);
+            if (mysqli_num_rows($result_check_username) > 0) {
+                $errorMessage = "Username already taken. Please choose a different username.";
             } else {
-                $fileName = null; // No file selected
-            }
+                // Saving images uploaded in profile
+                $targetdir = "images/";
 
-            $sql = "INSERT INTO user (name, username, email, password, picture) VALUES ('$name', '$username', '$email', '$password', '$profile')";
-            $result = mysqli_query($con, $sql);
-            if ($result) {
-                echo "doneeee";
+                if (!empty($_FILES["image"]["name"])) {
+                    $fileName = basename($_FILES["image"]["name"]);
+                    $targetFilePath = $targetdir . $fileName;
+                    $fileType = pathinfo($targetFilePath, PATHINFO_EXTENSION);
+                    // Check if the file was selected and move it to uploads directory
+                    move_uploaded_file($_FILES["image"]["tmp_name"], $targetFilePath);
+                } else {
+                    $fileName = null; // No file selected
+                }
+
+                // Hash the password using password_hash()
+                // Hash the password using md5() (not recommended, use password_hash() if possible)
+                $hashedPassword = md5($password);
+
+
+                $sql = "INSERT INTO user (name, username, email, password, picture) VALUES ('$name', '$username', '$email', '$hashedPassword', '$fileName')";
+                $result = mysqli_query($con, $sql);
+                if ($result) {
+                    echo "doneeee";
+                }
             }
         }
     }
@@ -59,8 +72,8 @@ if (isset($_POST['submit'])) {
     <title>Sign Up</title>
     <link rel="stylesheet" href="signup.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Josefin+Sans:wght@600&family=Roboto:wght@300&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Josefin+Sans:wght@600&family=Roboto:wght@300&display=swap" rel="stylesheet">
 </head>
 <body>
     <h1 class="header"><b>Spendrite</b></h1>
@@ -69,9 +82,13 @@ if (isset($_POST['submit'])) {
         <form action="signup.php" method="post" enctype="multipart/form-data">
             <h2>Create Account</h2> 
            
-            <input class="name" name="name" placeholder="Enter Full Name"><br>
-            <input type="text" name="username" id="" placeholder="Enter Username" required><br>
-            <input type="email"  name="email" class="email" placeholder="Enter Email" required><br>
+            <input class="name" name="name" placeholder="Enter Full Name" required><br>
+            <input type="text" name="username" id="" placeholder="Enter Username" required>
+            <span class="error"><?php echo $errorMessage === "Username already taken. Please choose a different username." ? $errorMessage : ""; ?></span>
+            <br>
+            <input type="email" name="email" class="email" placeholder="Enter Email" required>
+            <span class="error"><?php echo $errorMessage === "Email already used. Please use a different email." ? $errorMessage : ""; ?></span>
+            <br>
             <input type="password" name="password" class="password"  placeholder="Enter Password" required><br>
             <input type="password" name="conformP" class="conformPassword" placeholder="Conform Password" required><br>
             <input type="file" src="" alt="" name="profile_image"><br>
