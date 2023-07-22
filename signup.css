@@ -1,0 +1,122 @@
+
+body {
+    background-color: #57C2C2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.form-container {
+    font-family: 'Roboto', sans-serif;
+    top: -30px;
+    position: relative;
+    left: 300px; /* Adjust the left distance to move the form to the right */
+    transform-origin: top center; /* Set the transformation origin to the top center */
+    transform: rotate(-4deg); /* Rotate the form container slightly to the left */
+    background-color: #fff;
+    padding: 10px 30px;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+    max-width: 350px; /* Adjust the maximum width of the form */
+    width: 100%; /* Make the form container take the full available width */
+    margin-top: 50px; /* Adjust the top margin to move the form down */
+}
+
+h2 {
+    font-family: 'Josefin Sans', sans-serif;
+    transform: rotate(4deg);
+}
+
+input {
+    font-family: 'Roboto', sans-serif;
+    align-items: center;
+    width: 100%;
+    margin: 30px 0;
+    border: none;
+    border-bottom: 1px solid #000;
+    outline: none;
+    transform: rotate(4deg);
+}
+
+::placeholder {
+    letter-spacing: 0.5px;
+    font-family: 'Roboto', sans-serif;
+    font-size: 16px;
+}
+button{
+    padding:0 10px;
+    font-family: 'Roboto', sans-serif;
+    font-size: 30px;
+    background-color: #57C2C2;
+    border:none;
+    border-radius: 10px;
+}
+button,
+p {
+    transform: rotate(4deg);
+}
+
+a {
+    padding: 5px;
+    text-decoration: none;
+    color: #57C2C2;
+}
+img {
+    position: absolute;
+    top: 50%;
+    left: 15%;
+    transform: translateY(-50%);
+    max-width: 700px;
+    width: 100%;
+    z-index: 1;
+}
+.header {
+    font-family: 'Dancing Script', cursive;
+    position: absolute;
+    top: 5%;
+    left: 15%; /* Move the header to the horizontal center */
+    transform: translate(-50%, -50%);
+    font-size:100px;
+    color: #fff; /* Set the header color to white */
+    z-index: 2;
+}
+
+.footer {
+    font-family: 'Dancing Script', cursive;
+    position: absolute;
+    bottom: -15px; /* Adjust the distance from the bottom */
+    left: 50%; /* Move the footer to the horizontal center */
+    transform: translate(-50%, 0);
+    font-size: 40px; /* Adjust the font size */
+    color: #000; /* Set the footer color to white */
+    white-space: nowrap; /* Prevent text from wrapping to multiple lines */
+    z-index: 2;
+}
+
+.login {
+    position: relative;
+}
+
+/* CSS for the eye icon */
+ion-icon[name*="eye"] {
+    font-size: 24px;
+    position: absolute;
+    top: 60%;
+    right: 35px;
+    transform: translateY(-50%);
+    cursor: pointer;
+    z-index: 2;
+}
+
+/* Hide the second eye icon initially */
+ion-icon[name="eye"] {
+    display: none;
+}
+
+/* Adjusting the input's padding to make space for the icon */
+input[type="password"] {
+    padding-right: 45px; /* Adding some padding to the right */
+}
