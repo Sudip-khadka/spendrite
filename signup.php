@@ -1,7 +1,19 @@
 <?php
+session_start();
 include_once('config.php');
+
+// Initialize the error message variable
 $errorMessage = "";
 
+
+// Check if there is a loginMessage in the session
+if (isset($_SESSION['errorMessage'])) {
+    $errorMessage = $_SESSION['errorMessage'];
+    unset($_SESSION['errorMessage']); // Clear the loginMessage from the session after displaying it
+} else {
+    $errorMessage = ""; // Initialize the error message variable if there is no error message in the session
+}
+// Process form submission when the form is submitted
 if (isset($_POST['submit'])) {
     $name = $_POST['name'];
     $username = $_POST['username'];
@@ -12,16 +24,16 @@ if (isset($_POST['submit'])) {
 
     // Validate name format (allowing alphabets and spaces)
     if (!preg_match('/^[A-Za-z\s]+$/', $name)) {
-        echo "Invalid name format. Only alphabets and spaces are allowed.";
+        $errorMessage = "Invalid name format. Only alphabets and spaces are allowed.";
     } elseif (preg_match('/[\d\s]/', $username)) {
         // Validate username (no numbers or spaces allowed)
-        echo "Username cannot contain numbers or spaces.";
+        $errorMessage = "Username cannot contain numbers or spaces.";
     } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
         // Validate email format
-        echo "Invalid email format.";
+        $errorMessage = "Invalid email format.";
     } elseif ($password !== $conformP) {
         // Check if passwords match
-        echo "Passwords do not match.";
+        $errorMessage = "Passwords do not match.";
     } else {
         // Check if email already exists in the database
         $sql_check_email = "SELECT * FROM user WHERE email='$email'";
@@ -48,10 +60,8 @@ if (isset($_POST['submit'])) {
                     $fileName = null; // No file selected
                 }
 
-                // Hash the password using password_hash()
-                // Hash the password using md5() (not recommended, use password_hash() if possible)
+                // Hash the password using md5 (not recommended, use password_hash if possible)
                 $hashedPassword = md5($password);
-
 
                 $sql = "INSERT INTO user (name, username, email, password, picture) VALUES ('$name', '$username', '$email', '$hashedPassword', '$fileName')";
                 $result = mysqli_query($con, $sql);
@@ -61,6 +71,12 @@ if (isset($_POST['submit'])) {
             }
         }
     }
+     // Update the error message in the session variable
+     $_SESSION['errorMessage'] = $errorMessage;
+
+     // Redirect back to the signup page to display the error message
+     header("Location: signup.php");
+     exit();
 }
 ?>
 
@@ -83,14 +99,19 @@ if (isset($_POST['submit'])) {
             <h2>Create Account</h2> 
            
             <input class="name" name="name" placeholder="Enter Full Name" required><br>
+            <span class="error"><?php echo isset($errorMessage) ? ($errorMessage === "Invalid name format. Only alphabets and spaces are allowed." ? "Invalid name format" : "") : ""; ?></span>
+            <br>
             <input type="text" name="username" id="" placeholder="Enter Username" required>
-            <span class="error"><?php echo $errorMessage === "Username already taken. Please choose a different username." ? $errorMessage : ""; ?></span>
+            <span class="error"><?php echo isset($errorMessage) ? ($errorMessage === "Username cannot contain numbers or spaces." ? "Username cannot contain numbers or spaces" : "") : ""; ?></span>
             <br>
             <input type="email" name="email" class="email" placeholder="Enter Email" required>
-            <span class="error"><?php echo $errorMessage === "Email already used. Please use a different email." ? $errorMessage : ""; ?></span>
+            <span class="error"><?php echo isset($errorMessage) ? ($errorMessage === "Invalid email format." ? "Invalid email format" : "") : ""; ?></span>
             <br>
             <input type="password" name="password" class="password"  placeholder="Enter Password" required><br>
             <input type="password" name="conformP" class="conformPassword" placeholder="Conform Password" required><br>
+            <span class="error"><?php echo isset($errorMessage) ? ($errorMessage === "Passwords do not match." ? "Passwords do not match" : "") : ""; ?></span>
+            <br>
+
             <input type="file" src="" alt="" name="profile_image"><br>
         
             <button type="submit" name="submit">Submit</button>
