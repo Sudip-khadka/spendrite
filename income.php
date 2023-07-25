@@ -1,3 +1,17 @@
+<?php
+session_start();
+
+// Check if the user is logged in
+if (!isset($_SESSION['username'])) {
+    header("Location: login.php");
+    exit();
+}
+
+// Retrieve user information from the session
+$username = $_SESSION['username'];
+$user_id = $_SESSION['user_id'];
+ 
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -38,7 +52,10 @@
             <th>Date</th>
             <th>Details</th>
             <th>Actions</th>
+            <th>session_id</th>
             </tr>
+            <tr>
+            
             <?php 
             include 'incomedb.php';
             $sql= "SELECT * FROM incomes";
@@ -51,8 +68,9 @@
                     $amount=$row['amount'];
                     $date=$row['created_at'];
                     $detail=$row['Details'];
+                    $user=$row['user_id'];
                    ?>
-                     <tr>
+                     
             <td><?php echo $source ?></td>
             <td><?php echo $amount ?></td>
             <td><?php echo $date?></td>
@@ -62,6 +80,7 @@
             <a href="deleteincome.php?id=<?php echo $id ?>">Delete</a>
 
             </td>
+            <td><?php echo $user?></td>
         </tr>
  
                    <?php
