@@ -2,7 +2,7 @@
 *{
     margin: 0%;
     padding:0%;
-    border:0%;
+    box-sizing: border-box;/* Add box-sizing property to include padding and border in element's total width and height */
 }
 body {
     background-color: #57C2C2;
@@ -46,4 +46,53 @@ nav a {
 
 nav a:hover {
     color: #666;
+}
+.content {
+    font-family: 'Roboto', sans-serif;
+    top: -30px;
+    position: relative;
+    right: 300px; /* Adjust the left distance to move the form to the right */
+    transform-origin: top center; /* Set the transformation origin to the top center */
+     /* Rotate the form container slightly to the left */
+    background-color: #fff;
+    padding: 10px 30px;
+    border-radius: 10px;
+    text-align: center;
+    
+    max-width: 750px; /* Adjust the maximum width of the form */
+    width: 100%; /* Make the form container take the full available width */
+    margin-top: 50px; /* Adjust the top margin to move the form down */
+    transform: rotate(-4deg);
+    height:700px;
+}
+.text p{
+    margin-bottom: 30px;
+}
+.text{
+    font-size: 17px;
+    margin:20px;
+    transform: rotate(4deg); 
+}
+h2 {
+    color:#57C2C2;
+    font-family: 'Josefin Sans', sans-serif;
+    margin-bottom: 30px;
+    
+}
+.text a{
+    color:#333;
+    font-size: 30px;
+    padding:10px 20px 10px 20px;
+    text-decoration: none;
+    background-color: #57C2C2;
+    border-radius: 15px;
+}
+img {
+    position: absolute;
+    top: 52%;
+    right: 10%;
+    transform: translateY(-50%);
+    max-width: 600px;
+    width: 100%;
+    z-index: 1;
 }

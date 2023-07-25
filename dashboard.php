@@ -35,16 +35,25 @@ $user_id = $_SESSION['user_id'];
             <a href="logout.php">Logout</a>
         </nav>
     </header>
-    <p><span>Welcome, <?php echo $username; ?>!<span><br>We believe in providing our customers with the best possible experience when it comes to their financial transactions. That's why we encourage you to record every transaction you make with us.<br><br>
+    
+     <div class="content">
+        <div class="text">
+            <h2><span>Welcome to Spendrite, <?php echo $username; ?>!<br>Your user ID is: <?php echo $user_id; ?><span><br></h2>
 
-By keeping a record of your transactions, you can keep track of your spending and ensure that you always have an accurate and up-to-date record of your financial activities. This can be incredibly useful when it comes to budgeting, taxes, and other financial planning activities.<br><br>
+            <p>We believe in providing our customers with the best possible experience when it comes to their financial transactions. That's why we encourage you to record every transaction you make with us.<br><br>
 
-Recording your transactions is easy with our online platform. Simply log in to your account and navigate to the transactions section. From there, you can view and download your transaction history, as well as add new transactions as needed.<br><br>
+            By keeping a record of your transactions, you can keep track of your spending and ensure that you always have an accurate and up-to-date record of your financial activities. This can be incredibly useful when it comes to budgeting, taxes, and other financial planning activities.<br><br>
 
-We also offer a range of tools and resources to help you manage your finances, including budgeting tools, financial planning guides, and more. Whether you're a seasoned pro or just starting out, we're here to help you make the most of your money.<br><br>
+            Recording your transactions is easy with our online platform. Simply log in to your account and navigate to the transactions section. From there, you can view and download your transaction history, as well as add new transactions as needed.<br><br>
 
-So why wait? Start recording your transactions today and take control of your finances like never before. If you have any questions or need assistance, our customer support team is always here to help.</p>
-    <p>Your user ID is: <?php echo $user_id; ?></p>
+            We also offer a range of tools and resources to help you manage your finances, including budgeting tools, financial planning guides, and more. Whether you're a seasoned pro or just starting out, we're here to help you make the most of your money.<br><br>
+
+            So why wait? Start recording your transactions today and take control of your finances like never before. If you have any questions or need assistance, our customer support team is always here to help.</p>
+            <a href="income.php"><b>Get Started</b></a>    
+            </div>
+    </div>
+
     <img src="images/welcome.png">
+        
 </body>
 </html>
