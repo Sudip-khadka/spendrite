@@ -19,9 +19,23 @@ $user_id = $_SESSION['user_id'];
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hamro Expenses</title>
-    <link rel="stylesheet" href="income.css">
+    <link rel="stylesheet" href="index.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Josefin+Sans:wght@600&family=Roboto:wght@300&display=swap" rel="stylesheet">
+</head>
 </head>
 <body>
+<header> 
+        <div class="header-left">
+            <h1 class="header">Spendrite</h1>
+        </div>
+        <nav class="header-right">
+            <a href="income.php">Income</a>
+            <a href="dashboard2.php">Dashboard</a>
+            <a href="logout.php">Logout</a>
+        </nav>
+    </header>
     <fieldset class="container">
         <h2>Expenses Section</h2>
         <div>
@@ -36,7 +50,7 @@ $user_id = $_SESSION['user_id'];
                     <option>Household</option>
                     <option>Entertainment</option>
                     <option>Others</option>
-                </select>
+                </select><br><br>
                 <input type="number" name="amount" id="amount" placeholder="Enter amount" required> <br> <br>
                 <input type="date" name="date"><br><br>
                 <textarea type="text" name="detail" placeholder="Enter Details" ></textarea><br> <br>
@@ -46,8 +60,9 @@ $user_id = $_SESSION['user_id'];
     </fieldset>
     <hr>
     <h3>list of ExpensesItmes</h3>
-    <table>
+    <table border="1px">
         <tr>
+            <th>Id</th>
             <th>Expenses Source</th>
             <th>Amount</th>
             <th>Date</th>
@@ -70,13 +85,13 @@ $user_id = $_SESSION['user_id'];
             $user=$row['user_id'];
             ?>
              <tr>
-                
+                <td><?php echo $id?> </td>
                 <td><?php echo $expense?></td>
-                <td><?php echo $amount?></td>
+                <td><?php echo "Rs.".$amount?></td>
                 <td><?php echo $date?></td>
                 <td><?php echo $detail?></td>
             <td>
-                <a href="edit.php?id=<?php echo $id?>">Update</a>
+                <a href="editexpense.php?id=<?php echo $id?>">Edit</a>
                 <a href="deleteexpense.php?id=<?php echo $id?>">Delete</a>
             </td>
             <td><?php echo $user?></td>

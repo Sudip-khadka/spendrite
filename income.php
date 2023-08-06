@@ -18,9 +18,22 @@ $user_id = $_SESSION['user_id'];
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Income</title>
-    <link rel="stylesheet" href="income.css">
+    <link rel="stylesheet" href="index.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Josefin+Sans:wght@600&family=Roboto:wght@300&display=swap" rel="stylesheet">
 </head>
 <body>
+<header> 
+        <div class="header-left">
+            <h1 class="header">Spendrite</h1>
+        </div>
+        <nav class="header-right">
+            <a href="expenses.php">Expense</a>
+            <a href="dashboard2.php">Dashboard</a>
+            <a href="logout.php">Logout</a>
+        </nav>
+    </header>
     <fieldset class="container">
         <h2>Income Section</h2>
         <div>
@@ -43,9 +56,9 @@ $user_id = $_SESSION['user_id'];
             </form>
         </div>
     </fieldset>
-    <hr>
+   
     <h3>list of Income Itmes</h3>
-    <table>
+    <table border="1px">
         <tr>
             <th>Income Source</th>
             <th>Amount</th>
@@ -72,7 +85,7 @@ $user_id = $_SESSION['user_id'];
                    ?>
                      
             <td><?php echo $source ?></td>
-            <td><?php echo $amount ?></td>
+            <td><?php echo "Rs.".$amount ?></td>
             <td><?php echo $date?></td>
             <td><?php echo $detail?></td>
             <td>

@@ -1,0 +1,59 @@
+*{
+    
+}
+
+body{
+    
+}
+header {
+    top: 1%;
+    margin-top: -3%;
+    background-color: #fff;
+    font-size: 30px;
+    width: 100%;
+    padding: 10px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center; /* Align items vertically in the middle */
+}
+
+.header {
+    
+    font-family: 'Dancing Script', cursive;
+    font-size: 66px;
+    z-index: 2;
+    margin-left: 20px; /* Add some left margin for better spacing */
+}
+
+.header-right {
+
+    display: flex; /* Display items in the header-right div in a row */
+    align-items: center; /* Center items vertically */
+}
+
+nav a {
+    color: #333;
+    text-decoration: none;
+    font-weight: bold;
+    margin-right: 70px;
+}
+
+nav a:hover {
+    color: #666;
+}
+form{
+    font-size:;
+}
+table{
+    width:100%;
+    border-collapse: collapse;
+    background-color: white;
+}
+th{
+    border: 2px solid black;
+}
+.container{
+    max-width: 350px;
+    background-color: white;
+    
+}
