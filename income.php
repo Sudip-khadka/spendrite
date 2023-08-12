@@ -57,7 +57,15 @@ $user_id = $_SESSION['user_id'];
         </div>
     </fieldset>
    
-    <h3>list of Income Itmes</h3>
+    <h3>list of Income Itmes <select>
+        <option><a></option>
+        <option></option>
+        <option></option>
+        <option></option>
+
+
+
+</select></h3>
     <table border="1px">
         <tr>
             <th>Income Source</th>
