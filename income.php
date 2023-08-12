@@ -24,7 +24,34 @@ $user_id = $_SESSION['user_id'];
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Josefin+Sans:wght@600&family=Roboto:wght@300&display=swap" rel="stylesheet">
-    
+    <style>
+     .search-form {
+        
+            display: flex;
+            align-items: center;
+            margin-right: 10px;
+            padding-right: 10px;
+        }
+
+        .search-container {
+            
+            padding: right 10px;
+            display: flex;
+            align-items: center;
+            margin-right: 10px;
+        }
+
+        .clear-search {
+            
+            border-radius: 10px;
+            padding:10px;
+            background-color: #007bff;
+            text-decoration: none;
+            color: #ffff;
+            margin:15px;
+        }
+
+</style>
 </head>
 <body>
 <header> 
@@ -60,10 +87,18 @@ $user_id = $_SESSION['user_id'];
         </div>
         
     </fieldset>
-   
+    <form action="<?php echo strtok($_SERVER["REQUEST_URI"], '?'); ?>" method="get" class="search-form">
+        <label for="search">Search by Expense Source:</label>
+        <div class="search-container">
+            <input type="text" name="search" id="search" placeholder="Enter expense source" value="<?php echo isset($search) ? $search : ''; ?>">
+            <input type="submit" value="Search">
+        </div>
+        <a href="<?php echo strtok($_SERVER["REQUEST_URI"], '?'); ?>" class="clear-search">Clear Search</a>
+    </form>
     <h3>list of Income Itmes </h3>
     <table border="1px">
         <tr>
+            <th>Id</th>
             <th>Income Source</th>
             <th>Amount</th>
             <th>Date</th>
@@ -75,9 +110,14 @@ $user_id = $_SESSION['user_id'];
             
             <?php 
             include 'incomedb.php';
-            $sql= "SELECT * FROM incomes where user_id=$user_id";
-            $result=mysqli_query($conn,$sql);
+            $search = isset($_GET['search']) ? $_GET['search'] : '';
 
+            if ($search) {
+                $sql = "SELECT * FROM incomes WHERE user_id = $user_id AND source LIKE '%$search%'";
+            } else {
+                $sql = "SELECT * FROM incomes WHERE user_id = $user_id";
+            }
+            $result = mysqli_query($conn, $sql);
             if($result){
                 while($row=mysqli_fetch_assoc($result)){
                     $id=$row['id'];
@@ -87,7 +127,7 @@ $user_id = $_SESSION['user_id'];
                     $detail=$row['Details'];
                     $user=$row['user_id'];
                    ?>
-                     
+            <td><?php echo $id?> </td>       
             <td><?php echo $source ?></td>
             <td><?php echo "Rs.".$amount ?></td>
             <td><?php echo $date?></td>

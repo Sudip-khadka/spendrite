@@ -24,6 +24,34 @@ $user_id = $_SESSION['user_id'];
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Josefin+Sans:wght@600&family=Roboto:wght@300&display=swap" rel="stylesheet">
+<style>
+     .search-form {
+        
+            display: flex;
+            align-items: center;
+            margin-right: 10px;
+            padding-right: 10px;
+        }
+
+        .search-container {
+            
+            padding: right 10px;
+            display: flex;
+            align-items: center;
+            margin-right: 10px;
+        }
+
+        .clear-search {
+            
+            border-radius: 10px;
+            padding:10px;
+            background-color: #007bff;
+            text-decoration: none;
+            color: #ffff;
+            margin:15px;
+        }
+
+</style>
 </head>
 </head>
 <body>
@@ -59,7 +87,15 @@ $user_id = $_SESSION['user_id'];
             </form>
         </div>
     </fieldset>
-    <hr>
+    
+    <form action="<?php echo strtok($_SERVER["REQUEST_URI"], '?'); ?>" method="get" class="search-form">
+        <label for="search">Search by Expense Source:</label>
+        <div class="search-container">
+            <input type="text" name="search" id="search" placeholder="Enter expense source" value="<?php echo isset($search) ? $search : ''; ?>">
+            <input type="submit" value="Search">
+        </div>
+        <a href="<?php echo strtok($_SERVER["REQUEST_URI"], '?'); ?>" class="clear-search">Clear Search</a>
+    </form>
     <h3>list of ExpensesItmes</h3>
     <table border="1px">
         <tr>
@@ -71,10 +107,17 @@ $user_id = $_SESSION['user_id'];
             <th>Actions</th>
             <th>Session_id</th>
             </tr>
-        <?php
-    include 'expensesdb.php';
-    $sql= "SELECT * FROM expenses where user_id=$user_id";
-    $result=mysqli_query($conn,$sql);
+<?php
+        include 'expensesdb.php';
+        $search = isset($_GET['search']) ? $_GET['search'] : '';
+
+        if ($search) {
+            $sql = "SELECT * FROM expenses WHERE user_id = $user_id AND expense_head LIKE '%$search%'";
+        } else {
+            $sql = "SELECT * FROM expenses WHERE user_id = $user_id";
+        }
+
+    $result = mysqli_query($conn, $sql);
 
     if($result){
         while($row=mysqli_fetch_assoc($result)){
