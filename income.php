@@ -19,9 +19,12 @@ $user_id = $_SESSION['user_id'];
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Income</title>
     <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="table.css">
+    <link rel="stylesheet" href="form.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Josefin+Sans:wght@600&family=Roboto:wght@300&display=swap" rel="stylesheet">
+    
 </head>
 <body>
 <header> 
@@ -55,17 +58,10 @@ $user_id = $_SESSION['user_id'];
                 <input type="submit" value="Add Income">
             </form>
         </div>
+        
     </fieldset>
    
-    <h3>list of Income Itmes <select>
-        <option><a></option>
-        <option></option>
-        <option></option>
-        <option></option>
-
-
-
-</select></h3>
+    <h3>list of Income Itmes </h3>
     <table border="1px">
         <tr>
             <th>Income Source</th>
@@ -79,7 +75,7 @@ $user_id = $_SESSION['user_id'];
             
             <?php 
             include 'incomedb.php';
-            $sql= "SELECT * FROM incomes";
+            $sql= "SELECT * FROM incomes where user_id=$user_id";
             $result=mysqli_query($conn,$sql);
 
             if($result){

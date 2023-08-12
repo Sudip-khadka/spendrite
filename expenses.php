@@ -8,7 +8,6 @@ if (!isset($_SESSION['username'])) {
 }
 
 // Retrieve user information from the session
-// Retrieve user information from the session
 $username = $_SESSION['username'];
 $user_id = $_SESSION['user_id'];
 
@@ -20,6 +19,8 @@ $user_id = $_SESSION['user_id'];
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hamro Expenses</title>
     <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="table.css">
+    <link rel="stylesheet" href="form.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Josefin+Sans:wght@600&family=Roboto:wght@300&display=swap" rel="stylesheet">
