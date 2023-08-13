@@ -199,6 +199,7 @@ $conn->close();
             background-color: #666;
         }
         .incomechart{
+            
             margin:0 40px 0 40px;
             float:right;
         }
@@ -286,7 +287,9 @@ $conn->close();
             <a href="logout.php">Logout</a>
         </nav>
     </header>
+   <p><b>Enter Time Period</b></p>
     <form action="" method="post">
+        
             <label for="start_date">Start Date:</label>
             <input type="date" id="start_date" name="start_date" value="<?php echo date('Y-m-01'); ?>">
 
@@ -359,11 +362,26 @@ $conn->close();
     <?php } ?>
 
     var incomeColors = [
-    '#FF6384',
+        '#FF6384',
     '#36A2EB',
     '#FFCE56',
-    '#4BC0C0', // Turquoise
-    '#9966FF'  // Purple
+    '#4BC0C0',
+    '#9966FF',
+    '#FF9F40',
+    '#8A2BE2',
+    '#3CB371',
+    '#FF4500',
+    '#00CED1',
+    '#FF6347',
+    '#5F9EA0',
+    '#8B4513',
+    '#7B68EE',
+    '#4682B4',
+    '#DC143C',
+    '#DAA520',
+    '#20B2AA',
+    '#8B008B',
+    '#2E8B57'
 ];
 
     var incomePieChart = new Chart(document.getElementById("incomePieChart"), {
@@ -399,10 +417,25 @@ $conn->close();
 
     var expenseColors = [
         '#FF6384',
-        '#36A2EB',
-        '#FFCE56',
-        '#4BC0C0', // Turquoise
-        '#9966FF'  // Purple
+    '#36A2EB',
+    '#FFCE56',
+    '#4BC0C0',
+    '#9966FF',
+    '#FF9F40',
+    '#8A2BE2',
+    '#3CB371',
+    '#FF4500',
+    '#00CED1',
+    '#FF6347',
+    '#5F9EA0',
+    '#8B4513',
+    '#7B68EE',
+    '#4682B4',
+    '#DC143C',
+    '#DAA520',
+    '#20B2AA',
+    '#8B008B',
+    '#2E8B57'
     ];
 
     var expensePieChart = new Chart(document.getElementById("expensePieChart"), {

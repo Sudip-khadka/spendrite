@@ -52,7 +52,7 @@ if (isset($_SESSION['loginMessage'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
+    <title>Log In</title>
     <link rel="stylesheet" href="signup.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -63,7 +63,7 @@ if (isset($_SESSION['loginMessage'])) {
 <img src="images/signup.png" alt="Signup Image">
 <div class="login form-container">
     <form action="login.php" method="post">
-    <h2>Login</h2>
+    <h2>Log In</h2>
         <input type="text" name="username" id="username" placeholder="Username">
         <span class="error" id="username-error"><?php echo isset($loginMessage) ? ($loginMessage === "Username not found" ? "Username Not Found" : "") : ""; ?></span>
     <br>

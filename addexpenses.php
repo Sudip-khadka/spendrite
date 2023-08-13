@@ -11,13 +11,15 @@ if (!isset($_SESSION['username'])) {
 $username = $_SESSION['username'];
 $user_id = $_SESSION['user_id'];
 
+include 'expensesdb.php';
+
 $expense=$_POST['expense'];
 $amount=$_POST['amount'];
 $date = $_POST['date'];
 $detail=$_POST['detail'];
 echo $expense, $amount,$date;
 
-include 'expensesdb.php';
+
 
 $sql= "INSERT INTO expenses(expense_head,amount,created_at,Details,user_id)VALUES('$expense','$amount','$date','$detail','$user_id')";
 

@@ -73,8 +73,10 @@ $user_id = $_SESSION['user_id'];
                 <select  name="expense" id="expense" value="Select Income" required>
                 <option value="" disabled selected hidden>Select your expense catagory</option> 
                     <option>Education</option>
+                    <option>Bills Payment</option>
+                    <option>Purchases</option>
                     <option>Food</option>
-                    <option>Travel</option>
+                    <option>Transport</option>
                     <option>Health</option>
                     <option>Household</option>
                     <option>Entertainment</option>
