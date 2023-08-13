@@ -139,7 +139,20 @@ if ($expense_result->num_rows > 0) {
     $expense_totalAmount = $expense_row["total_expense"];
 }
 }
+// Calculate net savings
+$net_savings = $income_totalAmount - $expense_totalAmount;
+$savings_message = "";
 
+if ($net_savings < 0) {
+    $savings_message = "Warning! You have been spending too much.";
+    $savings_color = "red";
+} elseif ($net_savings < 500) {
+    $savings_message = "Warning! Your savings are too low. Control your expenses.";
+    $savings_color = "red";
+} else {
+    $savings_message = "Congratulations, " . $username . "! You're saving money.";
+    $savings_color = "green";
+}
 
 // Close the database connection
 $conn->close();
@@ -283,30 +296,13 @@ $conn->close();
             <input type="submit" name="search" value="Search">
         </form>
         <div class="savings">
-            <h2>Savings</h2>
-            <?php
-                $net_savings = $income_totalAmount - $expense_totalAmount;
-                $savings_class = ($net_savings >= 0) ? 'positive' : 'negative';
-                
-                if ($net_savings > -50 && $net_savings < 50) {
-                    $savings_message = "Keep an eye on your expenses.";
-                } elseif ($net_savings <= -50) {
-                    $savings_message = "You've been spending too much. Consider budgeting.";
-                } else {
-                    $savings_message = "Congratulations! You're saving money.";
-                }
-            ?>
-            <p class="<?php echo $savings_class; ?>">
-                <?php
-                    if ($net_savings >= 0) {
-                        echo "Rs. " . number_format($net_savings, 2);
-                    } else {
-                        echo "Rs. <span class='negative-amount'>" . number_format($net_savings, 2) . "</span>";
-                    }
-                ?>
-            </p>
-            <p class="<?php echo $savings_class; ?>"><?php echo $savings_message; ?></p>
-        </div>
+        <h2>Savings</h2>
+ 
+        <p style="color: <?php echo $savings_color; ?>">
+        <?php echo "Total savings is :Rs.".$net_savings?><br>
+            <?php echo $savings_message; ?>
+        </p>
+    </div>
 
 
 
