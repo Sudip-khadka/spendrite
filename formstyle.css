@@ -1,8 +1,10 @@
-/* Basic styling for the container */
+/* Form styling */
 .container {
-    max-height: fit-content;
-    max-width: 700px;
-    width: auto;
+    
+   
+    align-items: flex-start;
+    max-width: 650px;
+    width: 100%;
     margin: 0;
     padding: 20px;
     background-color: #f4f4f4;
@@ -10,24 +12,22 @@
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-/* Heading */
 h2 {
-    margin-top: -3%;
     font-size: 24px;
     margin-bottom: 20px;
     color: #333;
 }
 
-/* Form styling */
 form {
-    
-    align-items: left;
-    display: flex;
-    flex-direction: column;
+    width: 600px; /* Set the desired width for the form */
+    margin-right: 20px; /* Add some space between the form and the content */
 }
 
-select, input[type="number"], input[type="date"], textarea {
-    width: 90%;
+select,
+input[type="number"],
+input[type="date"],
+textarea {
+    width: 100%;
     padding: 10px;
     margin-bottom: 10px;
     border: 1px solid #ccc;
@@ -43,7 +43,6 @@ select {
     background-position: right center;
 }
 
-/* Styling for the submit button */
 input[type="submit"] {
     background-color: #007bff;
     color: #fff;
@@ -59,9 +58,3 @@ input[type="submit"]:hover {
     background-color: #0056b3;
 }
 
-/* Optional: Adding some responsive styles */
-@media screen and (max-width: 768px) {
-    .container {
-        width: 90%;
-    }
-}

@@ -20,37 +20,39 @@ $user_id = $_SESSION['user_id'];
     <title>Income</title>
     <link rel="stylesheet" href="index.css">
     <link rel="stylesheet" href="table.css">
-    <link rel="stylesheet" href="form.css">
+    <link rel="stylesheet" href="formstyle.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Josefin+Sans:wght@600&family=Roboto:wght@300&display=swap" rel="stylesheet">
     <style>
-     .search-form {
-        
-            display: flex;
-            align-items: center;
-            margin-right: 10px;
-            padding-right: 10px;
-        }
+    .search-form {
+        display: flex;
+        align-items: center;
+        margin: 10px;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 10px;
+    }
 
-        .search-container {
-            
-            padding: right 10px;
-            display: flex;
-            align-items: center;
-            margin-right: 10px;
-        }
+    .search-container {
+        display: flex;
+        align-items: center;
+        margin-right: 10px;
+    }
 
-        .clear-search {
-            
-            border-radius: 10px;
-            padding:10px;
-            background-color: #007bff;
-            text-decoration: none;
-            color: #ffff;
-            margin:15px;
-        }
+    .clear-search {
+        border-radius: 10px;
+        padding: 10px;
+        background-color: #007bff;
+        text-decoration: none;
+        color: #fff;
+        margin-left: 15px;
+        transition: background-color 0.3s;
+    }
 
+    .clear-search:hover {
+        background-color: #0056b3;
+    }
 </style>
 </head>
 <body>
