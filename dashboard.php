@@ -30,8 +30,8 @@ $user_id = $_SESSION['user_id'];
             <h1 class="header">Spendrite</h1>
         </div>
         <nav class="header-right">
-            <a href="income.php">Income</a>
-            <a href="expenses.php">Expenses</a>
+            <a href="dashboard2.php">Dashboard</a>
+            
             <a href="logout.php">Logout</a>
         </nav>
     </header>

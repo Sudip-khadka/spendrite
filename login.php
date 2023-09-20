@@ -67,17 +67,19 @@ if (isset($_SESSION['loginMessage'])) {
         <input type="text" name="username" id="username" placeholder="Username">
         <span class="error" id="username-error"><?php echo isset($loginMessage) ? ($loginMessage === "Username not found" ? "Username Not Found" : "") : ""; ?></span>
     <br>
+    <div class="password_wrapper">
         <input type="password" name="password" id="password" placeholder="Password">
         <span class="error" id="password-error"><?php echo isset($loginMessage) ? ($loginMessage === "Invalid password" ? "Incorrect Password" : "") : ""; ?></span>
         <br>
 
-        <ion-icon name="eye-off-outline"></ion-icon>
+        <ion-icon name="eye-off-outline" id="hidebutton"></ion-icon>
+        </div>
         <button type="submit" name="submit">Submit</button>
 
          
             
         <p>Don't have an account. <span><a href="signup.php">Sign Up</a></span></p>
-        
+        <p>Forgot Password:<span><a href="resetpassword.php">Forgot Password</a></span>
     </form>
 </div> 
 <p class="footer"><i>"Building a better financial future for you, with every transaction."</i></p>  

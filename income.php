@@ -69,7 +69,7 @@ $user_id = $_SESSION['user_id'];
     <fieldset class="container">
         <h2>Income Section</h2>
         <div>
-            <form action="addincome.php" method="post">
+            <form action="addincome.php" method="post" onsubmit="return validateForm()">
     
                 <select name="source"  value="Select Income" required>
                 <option value="" disabled selected hidden>Select your income catagory</option>
@@ -81,7 +81,7 @@ $user_id = $_SESSION['user_id'];
                     <option>Others</option>
                 </select><br><br>
                 
-                <input type="number" name="amount" id="amount" placeholder="Enter amount" required> <br> <br>
+                <input type="number" name="amount" id="amounts" placeholder="Enter amount" required> <br> <br>
                 <input type="date" name="date"><br><br> 
                 <textarea type="text" name="detail" placeholder="Enter Details" ></textarea><br> <br>
                 <input type="submit" value="Add Income">
@@ -90,9 +90,9 @@ $user_id = $_SESSION['user_id'];
         
     </fieldset>
     <form action="<?php echo strtok($_SERVER["REQUEST_URI"], '?'); ?>" method="get" class="search-form">
-        <label for="search">Search by Expense Source:</label>
+        <label for="search">Search by Income Source:</label>
         <div class="search-container">
-            <input type="text" name="search" id="search" placeholder="Enter expense source" value="<?php echo isset($search) ? $search : ''; ?>">
+            <input type="text" name="search" id="search" placeholder="Enter income source" value="<?php echo isset($search) ? $search : ''; ?>">
             <input type="submit" value="Search">
         </div>
         <a href="<?php echo strtok($_SERVER["REQUEST_URI"], '?'); ?>" class="clear-search">Clear Search</a>
@@ -115,9 +115,9 @@ $user_id = $_SESSION['user_id'];
             $search = isset($_GET['search']) ? $_GET['search'] : '';
 
             if ($search) {
-                $sql = "SELECT * FROM incomes WHERE user_id = $user_id AND source LIKE '%$search%'";
+                $sql = "SELECT * FROM incomes WHERE user_id = $user_id AND source LIKE '%$search%' ORDER BY id DESC";
             } else {
-                $sql = "SELECT * FROM incomes WHERE user_id = $user_id";
+                $sql = "SELECT * FROM incomes WHERE user_id = $user_id ORDER BY id DESC";
             }
             $result = mysqli_query($conn, $sql);
             if($result){
@@ -151,6 +151,18 @@ $user_id = $_SESSION['user_id'];
       
  
     </table>
+    <script>
+        //JS validation to check if amount entered is negative...
+        function validateForm() {
+            const amount = document.getElementById('amounts').value;
 
+            if (parseFloat(amount) < 0) {
+                alert('Amount cannot be negative');
+                return false;
+            }
+
+            return true;
+        }
+    </script>
 </body>
 </html>

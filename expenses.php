@@ -134,16 +134,16 @@ $user_id = $_SESSION['user_id'];
             <th>Date</th>
             <th>Details</th>
             <th>Actions</th>
-            <th>Session_id</th>
+            
             </tr>
 <?php
         include 'expensesdb.php';
         $search = isset($_GET['search']) ? $_GET['search'] : '';
 
         if ($search) {
-            $sql = "SELECT * FROM expenses WHERE user_id = $user_id AND expense_head LIKE '%$search%'";
+            $sql = "SELECT * FROM expenses WHERE user_id = $user_id AND expense_head LIKE '%$search%' ORDER BY id DESC";
         } else {
-            $sql = "SELECT * FROM expenses WHERE user_id = $user_id";
+            $sql = "SELECT * FROM expenses WHERE user_id = $user_id ORDER BY id DESC";
         }
 
     $result = mysqli_query($conn, $sql);
@@ -167,7 +167,7 @@ $user_id = $_SESSION['user_id'];
                 <a href="editexpense.php?id=<?php echo $id?>">Edit</a>
                 <a href="deleteexpense.php?id=<?php echo $id?>">Delete</a>
             </td>
-            <td><?php echo $user?></td>
+           
             </tr>
 
             <?php

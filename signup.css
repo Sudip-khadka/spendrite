@@ -96,12 +96,15 @@ img {
 .login {
     position: relative;
 }
-
+.password-wrapper {
+    position: relative;
+    display: inline-block; /* Make it an inline block to control vertical alignment */
+}
 /* CSS for the eye icon */
 ion-icon[name*="eye"] {
     font-size: 24px;
     position: absolute;
-    top: 55%;
+     top: 50%;
     right: 35px;
     transform: translateY(-50%);
     cursor: pointer;

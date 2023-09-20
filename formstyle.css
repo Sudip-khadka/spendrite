@@ -1,11 +1,9 @@
 /* Form styling */
 .container {
-    
-   
     align-items: flex-start;
-    max-width: 650px;
+    max-width: 80%; /* Adjust the maximum width as needed */
     width: 100%;
-    margin: 0;
+    margin: 0 auto; /* Center the form horizontally */
     padding: 20px;
     background-color: #f4f4f4;
     border-radius: 10px;
@@ -19,8 +17,8 @@ h2 {
 }
 
 form {
-    width: 600px; /* Set the desired width for the form */
-    margin-right: 20px; /* Add some space between the form and the content */
+    width: 100%; /* Take up full width of the container */
+    margin-right: 0; /* Remove right margin to use full width */
 }
 
 select,
@@ -33,6 +31,7 @@ textarea {
     border: 1px solid #ccc;
     border-radius: 5px;
     font-size: 16px;
+    box-sizing: border-box; /* Ensure padding and border don't affect width */
 }
 
 select {
@@ -58,3 +57,13 @@ input[type="submit"]:hover {
     background-color: #0056b3;
 }
 
+/* Media Queries for Responsiveness */
+@media screen and (max-width: 768px) {
+    .container {
+        padding: 10px; /* Adjust padding for smaller screens */
+    }
+    
+    form {
+        width: 100%;
+    }
+}

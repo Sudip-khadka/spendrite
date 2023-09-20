@@ -1,5 +1,6 @@
 /* Add this to your existing CSS */
 table {
+    max-width: 90%;
     width: 100%;
     border-collapse: collapse;
     background-color: #fff;
@@ -11,12 +12,13 @@ th, td {
     border: 2px solid #000;
     padding: 10px;
     text-align: center;
+    font-size: 16px; /* Adjust font size for better readability on smaller screens */
 }
 
 th {
     background-color: #f2f2f2;
     font-weight: bold;
-    font-size: 25px;
+    font-size: 20px; /* Adjust font size for better readability on smaller screens */
 }
 
 tr:nth-child(even) {
@@ -27,4 +29,23 @@ tr:hover {
     background-color: #e0e0e0;
 }
 
-/* Style the form */
+/* Media Queries for Responsive Table */
+@media screen and (max-width: 768px) {
+    th, td {
+        font-size: 14px; /* Adjust font size for smaller screens */
+    }
+
+    th {
+        font-size: 10px; /* Adjust font size for smaller screens */
+    }
+}
+@media screen and (max-width: 480px) {
+    th, td {
+        font-size: 14px; /* Adjust font size for smaller screens */
+    }
+
+    th {
+        font-size: 10px; /* Adjust font size for smaller screens */
+    }
+}
+
