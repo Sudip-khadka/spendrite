@@ -29,8 +29,8 @@ if (isset($_POST['reset_password'])) {
 
         if ($newPassword === $confirmPassword) {
             // Passwords match, update the user's password
-            $hashedPassword = password_hash($newPassword, PASSWORD_DEFAULT); // Use password_hash for secure password hashing
-
+            // Hash the password during registration
+            $hashedPassword = password_hash($newPassword, PASSWORD_DEFAULT);// Use password_hash for secure password hashing
             $row = mysqli_fetch_assoc($result_check_user);
             $userId = $row['id'];
 

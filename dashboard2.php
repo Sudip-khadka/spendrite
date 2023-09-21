@@ -168,6 +168,7 @@ $conn->close();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard</title>
+    <linl rel="stylesheet" href="dashboard.css">
     <link rel="stylesheet" href="index.css">
     <link rel="stylesheet" href="table.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">

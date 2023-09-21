@@ -14,23 +14,23 @@ if (isset($_POST['submit'])) {
 
     if ($result && mysqli_num_rows($result) > 0) {
         $row = mysqli_fetch_assoc($result);
-        $storedPassword = $row['password'];
-
-        $enteredPasswordHash = md5($password);
-
-    if ($enteredPasswordHash === $storedPassword) {
-        // Password is correct
-        $_SESSION['username'] = $username;
-        $_SESSION['user_id'] = $row['id'];
-        header("Location: dashboard.php"); // Redirect to the dashboard or any other page after successful login
-        exit();
-    } else {
-        $loginMessage = "Invalid password";
-    }
-
+        $storedPassword = $row['password']; // Retrieve the stored hashed password from the database
+    
+        $enteredPassword = $_POST['password']; // Get the entered password
+    
+        if (password_verify($enteredPassword, $storedPassword)) {
+            // Password is correct
+            $_SESSION['username'] = $username;
+            $_SESSION['user_id'] = $row['id'];
+            header("Location: dashboard.php"); // Redirect to the dashboard or any other page after successful login
+            exit();
+        } else {
+            $loginMessage = "Invalid password";
+        }
     } else {
         $loginMessage = "Username not found";
     }
+    
 
     // Store the loginMessage in a session variable
     $_SESSION['loginMessage'] = $loginMessage;

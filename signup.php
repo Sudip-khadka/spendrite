@@ -60,8 +60,9 @@ if (isset($_POST['submit'])) {
                     $fileName = null; // No file selected
                 }
 
-                // Hash the password using md5 (not recommended, use password_hash if possible)
-                $hashedPassword = md5($password);
+                // Hash the password using password_hash
+                $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+
 
                 $sql = "INSERT INTO user (name, username, email, password, picture) VALUES ('$name', '$username', '$email', '$hashedPassword', '$fileName')";
                 $result = mysqli_query($con, $sql);
