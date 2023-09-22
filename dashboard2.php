@@ -274,6 +274,23 @@ $conn->close();
         .chart {
             width: 49%;
         }
+        .download-button-container {
+            text-align: center;
+            margin-top: 20px; /* Adjust this value to control the vertical position */
+        }
+
+        #downloadBtn{
+            right: 50%;
+            margin-top:10px;
+            align-items: center;
+            text-decoration: none;
+            color:black;
+            font:10px;
+            border-radius: 6px;
+            text-align: center;
+            background-color: aqua;
+            padding:5px;
+        }
     </style>
 </head>
 <body>
@@ -341,12 +358,15 @@ $conn->close();
                 <td>Rs.<?php echo number_format($average_expense, 2); ?></td> <!-- Display average expense amount -->
             </tr>
             <tr>
-                <td><b>Net</b></td>
+                <td><b>Total</b></td>
                 <td><?php echo "Rs ".$income_totalAmount; ?></td> <!-- Display total income amount --></td>
                 <td><?php echo "Rs ".$expense_totalAmount; ?></td> <!-- Display total expense amount --></td>
             </tr>
         </table>
-       
+        <div class="download-button-container">
+            <a id="downloadBtn" href="generate_report.php?start_date=<?php echo urlencode($start_date); ?>&end_date=<?php echo urlencode($end_date); ?>&net_savings=<?php echo urlencode($net_savings); ?>&highest_income=<?php echo urlencode($highest_income); ?>&highest_expense=<?php echo urlencode($highest_expense); ?>&lowest_income=<?php echo urlencode($lowest_income); ?>&lowest_expense=<?php echo urlencode($lowest_expense); ?>&average_income=<?php echo urlencode($average_income); ?>&average_expense=<?php echo urlencode($average_expense); ?>&highest_income_source=<?php echo urlencode($highest_income_source); ?>&highest_expense_source=<?php echo urlencode($highest_expense_source); ?>&lowest_income_source=<?php echo urlencode($lowest_income_source); ?>&lowest_expense_source=<?php echo urlencode($lowest_expense_source); ?>&income_totalAmount=<?php echo urlencode($income_totalAmount) ?>&expense_totalAmount=<?php echo urlencode($expense_totalAmount) ?>" target="_blank"><b>Download PDF Report</b></a>
+        </div>
+
         <script>
     var start_date = "<?php echo isset($start_date) ? $start_date : ''; ?>";
     var end_date = "<?php echo isset($end_date) ? $end_date : ''; ?>";
@@ -459,7 +479,9 @@ $conn->close();
         }
     });
 </script>
-
+<script>
+    
+</script>
 
 </body>
 </html>
