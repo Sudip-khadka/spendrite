@@ -334,7 +334,7 @@ $conn->close();
         <canvas id="incomePieChart" width="500" height="500"></canvas>
         </div>
         
-        <table  border="1px">
+        <table border="1px">
         
 
             <tr>
@@ -364,7 +364,8 @@ $conn->close();
             </tr>
         </table>
         <div class="download-button-container">
-            <a id="downloadBtn" href="generate_report.php?start_date=<?php echo urlencode($start_date); ?>&end_date=<?php echo urlencode($end_date); ?>&net_savings=<?php echo urlencode($net_savings); ?>&highest_income=<?php echo urlencode($highest_income); ?>&highest_expense=<?php echo urlencode($highest_expense); ?>&lowest_income=<?php echo urlencode($lowest_income); ?>&lowest_expense=<?php echo urlencode($lowest_expense); ?>&average_income=<?php echo urlencode($average_income); ?>&average_expense=<?php echo urlencode($average_expense); ?>&highest_income_source=<?php echo urlencode($highest_income_source); ?>&highest_expense_source=<?php echo urlencode($highest_expense_source); ?>&lowest_income_source=<?php echo urlencode($lowest_income_source); ?>&lowest_expense_source=<?php echo urlencode($lowest_expense_source); ?>&income_totalAmount=<?php echo urlencode($income_totalAmount) ?>&expense_totalAmount=<?php echo urlencode($expense_totalAmount) ?>" target="_blank"><b>Download PDF Report</b></a>
+        <a id="downloadBtn" href="generate_report.php?start_date=<?php echo urlencode($start_date); ?>&end_date=<?php echo urlencode($end_date); ?>&net_savings=<?php echo urlencode($net_savings); ?>&highest_income=<?php echo urlencode($highest_income); ?>&highest_expense=<?php echo urlencode($highest_expense); ?>&lowest_income=<?php echo urlencode($lowest_income); ?>&lowest_expense=<?php echo urlencode($lowest_expense); ?>&average_income=<?php echo urlencode($average_income); ?>&average_expense=<?php echo urlencode($average_expense); ?>&highest_income_source=<?php echo urlencode($highest_income_source); ?>&highest_expense_source=<?php echo urlencode($highest_expense_source); ?>&lowest_income_source=<?php echo urlencode($lowest_income_source); ?>&lowest_expense_source=<?php echo urlencode($lowest_expense_source); ?>&income_totalAmount=<?php echo urlencode($income_totalAmount) ?>&expense_totalAmount=<?php echo urlencode($expense_totalAmount) ?>&incomeChartImage=<?php echo urlencode($incomeChartImage); ?>&expenseChartImage=<?php echo urlencode($expenseChartImage); ?>" target="_blank">Download PDF Report</a>
+
         </div>
 
         <script>
@@ -480,8 +481,35 @@ $conn->close();
     });
 </script>
 <script>
-    
-</script>
+// Save the chart images when needed
+document.getElementById("downloadBtn").addEventListener("click", function () {
+    saveChartImage(incomePieChart, 'income_chart_image.png', 'income');
+    saveChartImage(expensePieChart, 'expense_chart_image.png', 'expense');
+});
 
+// Function to capture and save chart image
+function saveChartImage(chart, imageName, chartType) {
+    var chartCanvas = chart.toBase64Image('image/png', 1.0); // Get chart as base64 PNG
+
+    // Send the chart image data to the server using AJAX
+    // Adjust the URL and data to match your server-side script
+    var postData = { image: chartCanvas, chartType: chartType }; // Add chartType parameter
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST', 'save_chart_image.php', true);
+    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+            var response = JSON.parse(xhr.responseText);
+            if (response.success) {
+                console.log('Image saved successfully:', imageName);
+            } else {
+                console.error('Error saving image:', response.message);
+            }
+        }
+    };
+    xhr.send('image=' + encodeURIComponent(chartCanvas) + '&chartType=' + chartType); // Send chartType
+}
+
+</script>
 </body>
 </html>

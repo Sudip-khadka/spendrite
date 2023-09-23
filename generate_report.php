@@ -23,8 +23,12 @@ $highest_income_source = isset($_GET['highest_income_source']) ? $_GET['highest_
 $highest_expense_source = isset($_GET['highest_expense_source']) ? $_GET['highest_expense_source'] : '';
 $lowest_income_source = isset($_GET['lowest_income_source']) ? $_GET['lowest_income_source'] : '';
 $lowest_expense_source = isset($_GET['lowest_expense_source']) ? $_GET['lowest_expense_source'] : '';
-$income_totalAmount=isset($_GET['income_totalAmount']) ? $_GET['income_totalAmount'] : '';
-$expense_totalAmount=isset($_GET['expense_totalAmount']) ? $_GET['expense_totalAmount'] : '';
+$income_totalAmount = isset($_GET['income_totalAmount']) ? $_GET['income_totalAmount'] : '';
+$expense_totalAmount = isset($_GET['expense_totalAmount']) ? $_GET['expense_totalAmount'] : '';
+
+$incomeChartImage = "chart_images/chart_income.png"; // Updated to use the saved image
+$expenseChartImage = "chart_images/chart_expense.png"; // Updated to use the saved image
+
 // Create a new PDF document
 $pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
 
@@ -74,6 +78,18 @@ $html .= '<table border="1">';
 $html .= '<tr><th>Total Income</th><th>Total Expense</th></tr>';
 $html .= '<tr><td>'."Rs.".$income_totalAmount.'</td><td>'."Rs.".$expense_totalAmount.'</td></tr>';
 $html .= '</table>';
+
+// Add chart images to the PDF (using the saved images)
+if (!empty($incomeChartImage)) {
+    $html .= '<h2>Income Chart</h2>';
+    $html .= '<img src="' . $incomeChartImage . '" width="500" height="500"><br><br>';
+}
+
+if (!empty($expenseChartImage)) {
+    $html .= '<h2>Expense Chart</h2>';
+    $html .= '<img src="' . $expenseChartImage . '" width="500" height="500"><br><br>';
+}
+
 // Output the HTML content to the PDF
 $pdf->writeHTML($html, true, false, true, false, '');
 
