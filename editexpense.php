@@ -39,7 +39,7 @@ if (!isset($_SESSION['username'])) {
         
        
         ?>
- <h3>Update expense of id <?php echo $id?></h3>
+ <h3>Update expense on <?php echo $expensesource?> of amount: <?php echo $expenseamount?> </h3>
         <div>
             <form action="expenseupdate.php" method="post">
     

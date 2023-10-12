@@ -136,13 +136,12 @@ $lastDayOfMonth = date("Y-m-t");
     <h3>list of Expenses Itmes</h3>
     <table border="1px">
         <tr>
-            <th>Id</th>
+            <th>S.N</th>
             <th>Expenses Source</th>
             <th>Amount</th>
             <th>Date</th>
             <th>Details</th>
             <th>Actions</th>
-            
             </tr>
 <?php
         include 'expensesdb.php';
@@ -169,21 +168,21 @@ $lastDayOfMonth = date("Y-m-t");
             }
             $sql .= " ORDER BY id DESC";
         }
-$id=0;
+$a=0;
     $result = mysqli_query($conn, $sql);
 
     if($result){
 
         while($row=mysqli_fetch_assoc($result)){
-            $id++;
+            $id=$row['id'];
+            $a++;
             $expense=$row['expense_head'];
             $amount=$row['amount'];
             $date=$row['created_at'];
             $detail=$row['Details'];
-            $user=$row['user_id'];
             ?>
              <tr>
-                <td><?php echo $id?> </td>
+                <td><?php echo $a?> </td>
                 <td><?php echo $expense?></td>
                 <td><?php echo "Rs.".$amount?></td>
                 <td><?php echo $date?></td>

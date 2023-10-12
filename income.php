@@ -104,16 +104,15 @@ $lastDayOfMonth = date("Y-m-t");
         </div>
         <a href="<?php echo strtok($_SERVER["REQUEST_URI"], '?'); ?>" class="clear-search">Clear Search</a>
     </form>
-    <h3>list of Income Itmes </h3>
+    <h3>list of Income Items </h3>
     <table border="1px">
         <tr>
-            <th>Id</th>
+            <th>S.N</th>
             <th>Income Source</th>
             <th>Amount</th>
             <th>Date</th>
             <th>Details</th>
             <th>Actions</th>
-            <th>session_id</th>
             </tr>
             <tr>
             
@@ -148,17 +147,16 @@ if ($search) {
 
     $sql .= " ORDER BY id DESC";
 }
-$id=0;
+$a=0;
             $result = mysqli_query($conn, $sql);
             if($result){
                 while($row=mysqli_fetch_assoc($result)){ 
-                                        
-                    $id ++;
+                    $id=$row['id'];                
+                    $a ++;
                     $source=$row['source'];
                     $amount=$row['amount'];
                     $date=$row['created_at'];
                     $detail=$row['Details'];
-                    $user=$row['user_id'];
                    ?>
             <td><?php echo $id?> </td>       
             <td><?php echo $source ?></td>
@@ -170,7 +168,6 @@ $id=0;
             <a href="deleteincome.php?id=<?php echo $id ?>">Delete</a>
 
             </td>
-            <td><?php echo $user?></td>
         </tr>
  
                    <?php

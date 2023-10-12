@@ -39,7 +39,7 @@ if (!isset($_SESSION['username'])) {
         
        
         ?>
- <h3>Update Income of id <?php echo $id?></h3>
+ <h3>Update income on <?php echo $incomesource?> of amount: <?php echo $incomeamount?> </h3>
         <div>
             <form action="incomeupdate.php" method="post">
     
