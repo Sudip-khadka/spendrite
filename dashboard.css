@@ -17,7 +17,6 @@ header {
     background-color: #fff;
     font-size: 30px;
     width: 100%;
-    padding: 10px 0;
     display: flex;
     justify-content: space-between;
     align-items: center; /* Align items vertically in the middle */
@@ -28,7 +27,7 @@ header {
     font-family: 'Dancing Script', cursive;
     font-size: 66px;
     z-index: 2;
-    margin-left: 20px; /* Add some left margin for better spacing */
+    margin-left: 100px; /* Add some left margin for better spacing */
 }
 
 .header-right {

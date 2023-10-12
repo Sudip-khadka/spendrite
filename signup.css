@@ -23,6 +23,7 @@ body {
     max-width: 350px; /* Adjust the maximum width of the form */
     width: 100%; /* Make the form container take the full available width */
     margin-top: 50px; /* Adjust the top margin to move the form down */
+    z-index: 5;
 }
 
 h2 {

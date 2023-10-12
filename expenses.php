@@ -11,6 +11,11 @@ if (!isset($_SESSION['username'])) {
 $username = $_SESSION['username'];
 $user_id = $_SESSION['user_id'];
 
+// Calculate the default start date and end date
+$today = date("Y-m-d");
+$firstDayOfMonth = date("Y-m-01");
+$lastDayOfMonth = date("Y-m-t");
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -110,7 +115,7 @@ $user_id = $_SESSION['user_id'];
                     <option>Others</option>
                 </select><br><br>
                 <input type="number" name="amount" id="amount" placeholder="Enter amount" required> <br> <br>
-                <input type="date" name="date"><br><br>
+                <input type="date" name="date" required><br><br>
                 <textarea type="text" name="detail" placeholder="Enter Details" ></textarea><br> <br>
                 <input type="submit" value="Add Expenses">
             </form>
@@ -118,14 +123,17 @@ $user_id = $_SESSION['user_id'];
     </fieldset>
     
     <form action="<?php echo strtok($_SERVER["REQUEST_URI"], '?'); ?>" method="get" class="search-form">
-        <label for="search">Search by Expense Source:</label>
-        <div class="search-container">
-            <input type="text" name="search" id="search" placeholder="Enter expense source" value="<?php echo isset($search) ? $search : ''; ?>">
-            <input type="submit" value="Search">
-        </div>
-        <a href="<?php echo strtok($_SERVER["REQUEST_URI"], '?'); ?>" class="clear-search">Clear Search</a>
-    </form>
-    <h3>list of ExpensesItmes</h3>
+    <label for="search">Search by Expense Source Between Dates:</label>
+    <div class="search-container">
+        <input type="text" name="search" id="search" placeholder="Enter expense source" value="<?php echo isset($search) ? $search : ''; ?>">
+        <input type="date" name="start_date" id="start_date" placeholder="Start Date" value="<?php echo isset($start_date) ? $start_date : $firstDayOfMonth; ?>">
+        <input type="date" name="end_date" id="end_date" placeholder="End Date" value="<?php echo isset($end_date) ? $end_date : $lastDayOfMonth; ?>">
+        <input type="submit" value="Search">
+    </div>
+    <a href="<?php echo strtok($_SERVER["REQUEST_URI"], '?'); ?>" class="clear-search">Clear Search</a>
+</form>
+
+    <h3>list of Expenses Itmes</h3>
     <table border="1px">
         <tr>
             <th>Id</th>
@@ -139,18 +147,35 @@ $user_id = $_SESSION['user_id'];
 <?php
         include 'expensesdb.php';
         $search = isset($_GET['search']) ? $_GET['search'] : '';
-
+        $start_date = isset($_GET['start_date']) ? $_GET['start_date'] : date('Y-m-d', strtotime('-1 month')); // Default to one month ago
+        $end_date = isset($_GET['end_date']) ? $_GET['end_date'] : date('Y-m-d'); // Default to current date
+        
         if ($search) {
-            $sql = "SELECT * FROM expenses WHERE user_id = $user_id AND expense_head LIKE '%$search%' ORDER BY id DESC";
+            $sql = "SELECT * FROM expenses WHERE user_id = $user_id AND expense_head LIKE '%$search%'";
+            if (!empty($start_date)) {
+                $sql .= " AND created_at >= '$start_date'";
+            }
+            if (!empty($end_date)) {
+                $sql .= " AND created_at <= '$end_date'";
+            }
+            $sql .= " ORDER BY id DESC";
         } else {
-            $sql = "SELECT * FROM expenses WHERE user_id = $user_id ORDER BY id DESC";
+            $sql = "SELECT * FROM expenses WHERE user_id = $user_id";
+            if (!empty($start_date)) {
+                $sql .= " AND created_at >= '$start_date'";
+            }
+            if (!empty($end_date)) {
+                $sql .= " AND created_at <= '$end_date'";
+            }
+            $sql .= " ORDER BY id DESC";
         }
-
+$id=0;
     $result = mysqli_query($conn, $sql);
 
     if($result){
+
         while($row=mysqli_fetch_assoc($result)){
-            $id=$row['id'];
+            $id++;
             $expense=$row['expense_head'];
             $amount=$row['amount'];
             $date=$row['created_at'];

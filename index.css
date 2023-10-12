@@ -3,11 +3,11 @@ body{
 }
 header {
     top: 1%;
-    margin-top: -3%;
+    margin-top: -5%;
     background-color: #fff;
     font-size: 30px;
     width: 100%;
-    padding: 10px 0;
+    padding-top: 10px;
     display: flex;
     justify-content: space-between;
     align-items: center; /* Align items vertically in the middle */

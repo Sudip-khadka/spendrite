@@ -176,6 +176,11 @@ $conn->close();
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Josefin+Sans:wght@600&family=Roboto:wght@300&display=swap" rel="stylesheet"> 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
+        header{
+            padding-bottom: 0px;
+            border-bottom: 1px solid black;
+            margin-bottom: 20px;
+        }
         form {
             width:100%;
             margin-top: 20px;
@@ -199,17 +204,20 @@ $conn->close();
             cursor: pointer;
             transition: background-color 0.3s ease;
         }
-
+        .searchbar{
+            margin-top: 70px;
+        }
         input[type="submit"]:hover {
             background-color: #666;
         }
         .incomechart{
-            
-            margin:0 40px 0 40px;
+            border:1px solid #ccc;
+            margin:0 40px;
             float:right;
         }
         .expensechart{
-            margin:0 40px 0 40px;
+            border:1px solid #ccc;
+            margin:0 40px;
             float:right;
         }
         #incomePieChart {
@@ -227,6 +235,9 @@ $conn->close();
             justify-content: space-between;
             flex-wrap: wrap;
             margin-top: 20px;
+        }
+        .grouping{
+            display:flex;
         }
 
         .savings {
@@ -274,6 +285,9 @@ $conn->close();
         .chart {
             width: 49%;
         }
+        table{
+            align-items: center;
+        }
         .download-button-container {
             text-align: center;
             margin-top: 20px; /* Adjust this value to control the vertical position */
@@ -304,7 +318,8 @@ $conn->close();
             <a href="logout.php">Logout</a>
         </nav>
     </header>
-   <p><b>Enter Time Period</b></p>
+    <div class="searchbar">
+    <p><b>Enter Time Period</b></p>
     <form action="" method="post">
         
             <label for="start_date">Start Date:</label>
@@ -315,6 +330,10 @@ $conn->close();
 
             <input type="submit" name="search" value="Search">
         </form>
+    </div>
+   
+
+        <div class="grouping">
         <div class="savings">
         <h2>Savings</h2>
  
@@ -332,6 +351,7 @@ $conn->close();
     </div>
        <div class="incomechart"><h2 style="margin-left:20px">Income Chart</h2>
         <canvas id="incomePieChart" width="500" height="500"></canvas>
+        </div>
         </div>
         
         <table border="1px">

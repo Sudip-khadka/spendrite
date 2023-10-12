@@ -10,7 +10,12 @@ if (!isset($_SESSION['username'])) {
 // Retrieve user information from the session
 $username = $_SESSION['username'];
 $user_id = $_SESSION['user_id'];
- 
+
+// Calculate the default start date and end date
+$today = date("Y-m-d");
+$firstDayOfMonth = date("Y-m-01");
+$lastDayOfMonth = date("Y-m-t");
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -82,18 +87,20 @@ $user_id = $_SESSION['user_id'];
                 </select><br><br>
                 
                 <input type="number" name="amount" id="amounts" placeholder="Enter amount" required> <br> <br>
-                <input type="date" name="date"><br><br> 
+                <input type="date" name="date" required><br><br> 
                 <textarea type="text" name="detail" placeholder="Enter Details" ></textarea><br> <br>
                 <input type="submit" value="Add Income">
             </form>
         </div>
         
     </fieldset>
-    <form action="<?php echo strtok($_SERVER["REQUEST_URI"], '?'); ?>" method="get" class="search-form">
-        <label for="search">Search by Income Source:</label>
+    <form action="<?php echo strtok($_SERVER["REQUEST_URI"], '?'); ?>" method="post" class="search-form">
+        <label for="search">Search by Income Source Between Dates:</label>
         <div class="search-container">
-            <input type="text" name="search" id="search" placeholder="Enter income source" value="<?php echo isset($search) ? $search : ''; ?>">
-            <input type="submit" value="Search">
+        <input type="text" name="search" id="search" placeholder="Enter income source" value="<?php echo isset($_POST['search']) ? $_POST['search'] : ''; ?>">
+        <input type="date" name="start_date" id="start_date" placeholder="Start Date" value="<?php echo isset($_POST['start_date']) ? $_POST['start_date'] : $firstDayOfMonth; ?>">
+        <input type="date" name="end_date" id="end_date" placeholder="End Date" value="<?php echo isset($_POST['end_date']) ? $_POST['end_date'] : $lastDayOfMonth; ?>">
+        <input type="submit" value="Search">
         </div>
         <a href="<?php echo strtok($_SERVER["REQUEST_URI"], '?'); ?>" class="clear-search">Clear Search</a>
     </form>
@@ -110,19 +117,43 @@ $user_id = $_SESSION['user_id'];
             </tr>
             <tr>
             
-            <?php 
+<?php 
             include 'incomedb.php';
-            $search = isset($_GET['search']) ? $_GET['search'] : '';
+            $search = isset($_POST['search']) ? $_POST['search'] : '';
+$start_date = isset($_POST['start_date']) ? $_POST['start_date'] : $firstDayOfMonth; // Default to one month ago
+$end_date = isset($_POST['end_date']) ? $_POST['end_date'] : $lastDayOfMonth; // Default to current date
 
-            if ($search) {
-                $sql = "SELECT * FROM incomes WHERE user_id = $user_id AND source LIKE '%$search%' ORDER BY id DESC";
-            } else {
-                $sql = "SELECT * FROM incomes WHERE user_id = $user_id ORDER BY id DESC";
-            }
+if ($search) {
+    $sql = "SELECT * FROM incomes WHERE user_id = $user_id AND source LIKE '%$search%'";
+
+    if (!empty($start_date)) {
+        $sql .= " AND created_at >= '$start_date'";
+    }
+
+    if (!empty($end_date)) {
+        $sql .= " AND created_at <= '$end_date'";
+    }
+
+    $sql .= " ORDER BY id DESC";
+} else {
+    $sql = "SELECT * FROM incomes WHERE user_id = $user_id";
+
+    if (!empty($start_date)) {
+        $sql .= " AND created_at >= '$start_date'";
+    }
+
+    if (!empty($end_date)) {
+        $sql .= " AND created_at <= '$end_date'";
+    }
+
+    $sql .= " ORDER BY id DESC";
+}
+$id=0;
             $result = mysqli_query($conn, $sql);
             if($result){
-                while($row=mysqli_fetch_assoc($result)){
-                    $id=$row['id'];
+                while($row=mysqli_fetch_assoc($result)){ 
+                                        
+                    $id ++;
                     $source=$row['source'];
                     $amount=$row['amount'];
                     $date=$row['created_at'];
