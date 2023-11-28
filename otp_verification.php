@@ -39,7 +39,7 @@ if (isset($_POST['verify_otp'])) {
 <body>
     <h1 class="header"><b>Spendrite</b></h1>
     <div class="reset-password form-container">
-
+        <img src="images/signup.png" alt="Signup Image">
         <form action="otp_verification.php" method="post">
             <h2>OTP Verification</h2>
             <?php if (!empty($resetMessage)) { ?>

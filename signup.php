@@ -109,11 +109,11 @@ if (isset($_POST['submit'])) {
             <span class="error"><?php echo isset($errorMessage) ? ($errorMessage === "Invalid email format." ? "Invalid email format" : "") : ""; ?></span>
             <br>
             <input type="password" name="password" class="password"  placeholder="Enter Password" required><br>
-            <input type="password" name="conformP" class="conformPassword" placeholder="Conform Password" required><br>
+            <input type="password" name="conformP" class="conformPassword" placeholder="Confirm Password" required><br>
             <span class="error"><?php echo isset($errorMessage) ? ($errorMessage === "Passwords do not match." ? "Passwords do not match" : "") : ""; ?></span>
             <br>
 
-            <input type="file" src="" alt="" name="profile_image"><br>
+            <!-- <input type="file" src="" alt="" name="profile_image"><br> -->
         
             <button type="submit" name="submit">Submit</button>
         

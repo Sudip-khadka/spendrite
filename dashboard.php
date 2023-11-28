@@ -48,7 +48,7 @@ $user_id = $_SESSION['user_id'];
 
             We also offer a range of tools and resources to help you manage your finances, including budgeting tools, financial planning guides, and more. Whether you're a seasoned pro or just starting out, we're here to help you make the most of your money.<br><br>
 
-            So why wait? Start recording your transactions today and take control of your finances like never before. If you have any questions or need assistance, our customer support team is always here to help.</p>
+            So why wait? Start recording your transactions today and take control of your finances like never before. If you have any questions or need assistance, our customer support team is always here to help.<br><br>For more queries contact:: <b>spendritemanagement@gmail.com</b></p>
             <a href="dashboard2.php"><b>Get Started</b></a>    
             </div>
     </div>
